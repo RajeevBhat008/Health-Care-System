@@ -12,28 +12,39 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
+/*
+ * class of diagnostic test
+ * 
+ * author: Rikth Chakraborty
+ */
 @Entity
 public class DiagnosticTest {
+	//diagnostic test id
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	int id;
+	// name of the diagnostic test cannot be null
 	@NotBlank(message = "Please Include a Test Name")
 	String testName;
+	//Price of the diagnostic test cannot be null
 	@NotNull(message = "Please Include price of the test")
 	Double testPrice;
+	// normal value of test
 	String normalValue;
+	// units of sample collected
 	String units;
-	/*@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
-	@JoinColumn(name = "appointment_id", updatable = false, nullable = false)
-	Appointment appointments;
-*/
-	
+	/* many to one relation between diagnostic test
+	 * and diagnostic center with common column "diagnosticCentre_id"
+	 * that cannot be null
+	*/
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "diagnosticCenter_id", updatable = false, nullable = false)
 	@JsonIgnore
 	DiagnosticCenter diagnosticCenter;
-	
+	/* many to one relation between diagnostic test
+	 * and appointment with common column "appointment_id"
+	 * that cannot be null
+	*/
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "appointment_id", updatable = false, nullable = false)
 	@JsonIgnore

@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.capgemini.healthcaresystem.dao.DiagnosticTest;
 import com.capgemini.healthcaresystem.service.DiagnosticTestService;
 import com.capgemini.healthcaresystem.service.MapValidationErrorService;
-
+/*
+ * Controller of the diagnostic test module
+ */
 @RestController
 @RequestMapping("/api/diagnosticTest")
 public class DiagnosticTestController {
@@ -28,7 +30,9 @@ public class DiagnosticTestController {
 	
 	@Autowired
 	MapValidationErrorService mapValidationErrorService;
-	
+	/*
+	 * Add diagnostic test controller
+	 */
 	@PostMapping("/{centerId}")
 	public ResponseEntity<?> addDiagnosticTest(@Valid @RequestBody DiagnosticTest diagnosticTest, @PathVariable int centerId,BindingResult result){
 		ResponseEntity<?> errorMap = mapValidationErrorService.mapValidationError(result);
@@ -37,18 +41,24 @@ public class DiagnosticTestController {
 		DiagnosticTest savedProject = diagnosticTestService.addNewTest(diagnosticTest,centerId);
 		return new ResponseEntity<DiagnosticTest>(savedProject, HttpStatus.CREATED);
 	}
-	
+	/*
+	 * Get all test controller
+	 */
 	@GetMapping("/list")
 	public Iterable<DiagnosticTest> getAllTest(){
 		return diagnosticTestService.getAllTest();
 	}
-	
+	/*
+	 * get tests of a centre controller
+	 */
 	@GetMapping("/byCentre/{centreId}")
 	public Iterable<DiagnosticTest> getTestsOfDiagnosticCenter(@PathVariable int centreId){
 		 return diagnosticTestService.getTestsOfDiagnosticCenter(centreId);
 		
 	}
-	
+	/*
+	 * update details controller
+	 */
 	@PatchMapping("/updateByTestName/{testName}")
 	public ResponseEntity<?> updateTestDetail(@Valid @RequestBody DiagnosticTest diagnosticTest,@PathVariable String testName, BindingResult result){
 		ResponseEntity<?> errorMap = mapValidationErrorService.mapValidationError(result);
@@ -57,7 +67,9 @@ public class DiagnosticTestController {
 		DiagnosticTest updateTestDetail= diagnosticTestService.updateTestDetail(diagnosticTest,testName);
 		return new ResponseEntity<DiagnosticTest>(updateTestDetail,HttpStatus.OK);
 	}
-	
+	/*
+	 * delete test controller
+	 */
 	@DeleteMapping("/{testName}")
 	public ResponseEntity<?> removeTestFromDiagnosticCenter(@PathVariable String testName ){
 	diagnosticTestService.removeTestFromDiagnosticCenter(testName);

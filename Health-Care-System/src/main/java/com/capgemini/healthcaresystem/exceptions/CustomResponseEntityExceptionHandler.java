@@ -19,5 +19,16 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
 			return new ResponseEntity<Object>(exceptionResponse,HttpStatus.BAD_REQUEST);
 			
 		}
-
+		public final ResponseEntity<Object> handleDiagnosticTestNameException(DiagnosticTestNameException e,
+				WebRequest request){
+			DiagnosticTestNameExceptionResponse exceptionResponse=new DiagnosticTestNameExceptionResponse(e.getMessage());
+			return new ResponseEntity<Object>(exceptionResponse,HttpStatus.BAD_REQUEST);
+			
+		}
+		public final ResponseEntity<Object> handleCenterIdNullException(CenterIdNullException e,
+				WebRequest request){
+			CenterIdNullExceptionResponse exceptionResponse=new CenterIdNullExceptionResponse(e.getMessage());
+			return new ResponseEntity<Object>(exceptionResponse,HttpStatus.BAD_REQUEST);
+			
+		}
 }
